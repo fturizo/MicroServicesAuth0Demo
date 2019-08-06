@@ -15,22 +15,22 @@ Users that access this application should follow into the next 3 roles:
 
 `Admin`:: Administrators of the conference event. They can:
 +
-1. Create new session talks
-2. View all session talks
-3. Delete session talks
-4. View all registered speakers
-5. Accept speakers into the conference.
+. Create new session talks
+. View all session talks
+. Delete session talks
+. View all registered speakers
+. Accept speakers into the conference.
 
 `Speaker`:: Speakers of talks at the event. They can:
 +
-1. View all fellow speakers
-2. Register themselves as speakers
+. View all fellow speakers
+. Register themselves as speakers
 
 `Attendee`:: Attendees of the event. They can:
 +
-1. View all speakers registered
-2. View all session talks
-3. Attend a session if interested
+. View all speakers registered
+. View all session talks
+. Attend a session if interested
 
 All three applications are configured as Maven projects and can be launched from the command line using the Payara Micro Maven plugin like this:
 

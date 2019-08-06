@@ -30,7 +30,7 @@
                     <commandLineOptions>
                         <option>
                             <key>--port</key>
-                            <value>8000</value>
+                            <value>${conference.service.webapp.port}</value>
                         </option>
                         <option>
                             <key>--noCluster</key>

@@ -49,7 +49,7 @@
                     <commandLineOptions>
                         <option>
                             <key>--port</key>
-                            <value>8081</value>
+                            <value>${conference.service.speaker.port}</value>
                         </option>
                         <option>
                             <key>--noCluster</key>

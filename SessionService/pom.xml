@@ -46,10 +46,20 @@
                 <configuration>
                     <payaraVersion>${version.payara}</payaraVersion>
                     <deployWar>false</deployWar>
+                    <javaCommandLineOptions>
+                        <option>
+                            <key>-Dmp.jwt.verify.publickey.location</key>
+                            <value>https://payara.auth0.com/.well-known/jwks.json</value>
+                        </option>
+                        <option>
+                            <key>-Dmp.jwt.verify.issuer</key>
+                            <value>https://payara.auth0.com/</value>
+                        </option>
+                    </javaCommandLineOptions>
                     <commandLineOptions>
                         <option>
                             <key>--port</key>
-                            <value>8080</value>
+                            <value>${conference.service.session.port}</value>
                         </option>
                         <option>
                             <key>--noCluster</key>
