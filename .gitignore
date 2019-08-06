@@ -3,9 +3,12 @@
 /.project
 /ConferenceWebApplication/.classpath
 /ConferenceWebApplication/.project
+/ConferenceWebApplication/target/
 /SessionService/.classpath
 /SessionService/.settings/
 /SessionService/.project
+/SessionService/target/
 /SpeakerService/.settings/
 /SpeakerService/.project
 /SpeakerService/.classpath
+/SpeakerService/target/
