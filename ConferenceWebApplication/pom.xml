@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fish.payara.demos</groupId>
+        <artifactId>Auth0Conference</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>fish.payara.demos</groupId>
+    <artifactId>ConferenceWebApplication</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <name>ConferenceWebApplication</name>
+    <properties>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+    </properties>
+
+    <build>
+        <finalName>conference-webapp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.5</version>
+                <configuration>
+                    <payaraVersion>${version.payara}</payaraVersion>
+                    <deployWar>false</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--port</key>
+                            <value>8000</value>
+                        </option>
+                        <option>
+                            <key>--noCluster</key>
+                        </option>
+                        <option>
+                            <key>--deploy</key>
+                            <value>${project.build.directory}/${project.build.finalName}</value>
+                        </option>
+                    </commandLineOptions>
+                    <contextRoot>"/"</contextRoot>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

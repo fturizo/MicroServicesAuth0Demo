@@ -1,0 +1,20 @@
+.hidden {
+    display: none;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.navbar {
+    min-height: 115px;
+}
+
+.micro-logo{
+    background-image: url("/images/micro-logo-or.png");
+    width: 7rem;
+    height: 4.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

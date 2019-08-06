@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="h-100">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Conference Manager Demo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai-sublime.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
+    integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
+    integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css" />
+</head>
+
+<body class="h-100">
+  <div id="app" class="h-100 d-flex flex-column">
+    <div class="nav-container">
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+          <div class="navbar-brand micro-logo"></div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link route-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/sessions" class="nav-link route-link hidden auth-visible">
+                  <i class="fa fa-chalkboard-teacher"></i> Talk Sessions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/speakers" class="nav-link route-link hidden auth-visible">
+                  <i class="fa fa-user-tie"></i> Speakers
+                </a>
+              </li>
+            </ul>
+            <ul class="navbar-nav d-none d-md-block">
+              <!-- Login button: show if NOT authenticated -->
+              <li class="nav-item auth-invisible">
+                <button id="qsLoginBtn" onclick="login()" class="btn btn-primary btn-margin auth-invisible hidden">
+                  Log in
+                </button>
+              </li>
+              <!-- / Login button -->
+
+              <!-- Fullsize dropdown: show if authenticated -->
+              <li class="nav-item dropdown auth-visible hidden">
+                <a class="nav-link dropdown-toggle" href="#" id="profileDropDown" data-toggle="dropdown">
+                  <!-- Profile image should be set to the profile picture from the id token -->
+                  <img alt="Profile picture" class="nav-user-profile profile-image rounded-circle" width="50" />
+                </a>
+                <div class="dropdown-menu">
+                  <!-- Show the user's full name from the id token here -->
+                  <div class="dropdown-header nav-user-name user-name"></div>
+                  <a href="/profile" class="dropdown-item dropdown-profile route-link">
+                    <i class="fas fa-user mr-3"></i> Profile
+                  </a>
+                  <a href="/token" class="dropdown-item dropdown-profile route-link">
+                    <i class="fas fa-user mr-3"></i> Access Token
+                  </a>
+                  <a href="#" class="dropdown-item" id="qsLogoutBtn" onclick="logout()">
+                    <i class="fas fa-power-off mr-3"></i> Log out
+                  </a>
+                </div>
+              </li>
+              <!-- /Fullsize dropdown -->
+            </ul>
+
+            <!-- Responsive login button: show if NOT authenticated -->
+            <ul class="navbar-nav d-md-none auth-invisible">
+              <button class="btn btn-primary btn-block auth-invisible hidden" id="qsLoginBtn" onclick="login()">
+                Log in
+              </button>
+            </ul>
+            <!-- /Responsive login button -->
+
+            <!-- Responsive profile dropdown: show if authenticated -->
+            <ul class="navbar-nav d-md-none auth-visible hidden justify-content-between" style="min-height: 125px">
+              <li class="nav-item">
+                <span class="user-info">
+                  <!-- Profile image should be set to the profile picture from the id token -->
+                  <img alt="Profile picture" class="nav-user-profile d-inline-block profile-image rounded-circle mr-3"
+                    width="50" />
+                  <!-- Show the user's full name from the id token here -->
+                  <h6 class="d-inline-block nav-user-name user-name"></h6>
+                </span>
+              </li>
+              <li>
+                <i class="fas fa-user mr-3"></i>
+                <a href="/profile" class="route-link">Profile</a>
+              </li>
+              <li>
+                <i class="fas fa-user mr-3"></i>
+                <a href="/token" class="route-link">Access Token</a>
+              </li>
+              <li>
+                <i class="fas fa-power-off mr-3"></i>
+                <a href="#" id="qsLogoutBtn" onclick="logout()">Log out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="main-content" class="container mt-5 flex-grow-1">
+
+      <div id="alerts"></div>
+
+      <div class="page" id="content-home">
+        <div class="text-center">
+          <img class="mb-3 app-logo" src="/images/logo.svg" alt="Conference Application" width="75" />
+          <h1 class="mb-4">Conference Manager</h1>
+
+          <p class="lead">
+            This is a sample SPA interface that uses both Auth0 and MicroProfile in order to integrate 2 
+            separate micro services (<code>microservice-session</code> and <code>microservice-speaker</code>) for a minimal conference management platform.
+          </p>
+        </div>
+      </div>
+
+      <div class="page" id="content-profile">
+        <div class="container">
+          <div class="row align-items-center profile-header">
+            <div class="col-md-2">
+              <img alt="User's profile picture" class="rounded-circle img-fluid profile-image mb-3 mb-md-0" />
+            </div>
+            <div class="col-md">
+              <h2 class="user-name"></h2>
+              <p class="lead text-muted user-email"></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <pre class="rounded">
+                <code id="profile-data" class="json"></code>
+            </pre>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page" id="content-token">
+        <div class="container">
+          <div class="row align-items-center profile-header">
+            <div class="col-md-2">
+              <img alt="User's profile picture" class="rounded-circle img-fluid profile-image mb-3 mb-md-0" />
+            </div>
+            <div class="col-md">
+              <h2 class="user-name"></h2>
+              <p class="lead text-muted user-email"></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <pre class="rounded">
+                <code id="token-data" class="json"></code>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="speakers">
+        <div class="container">
+          <p>
+            <button class="btn btn-primary" data-toggle="modal" id="show-register-speaker">
+              Register Myself as Speaker <i class="fa fa-plus-circle"></i>
+            </button>
+          </p>
+          <table class="table" id="current-speakers">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Organization</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page" id="sessions">
+        <div class="container">
+          <p>
+            <a class="btn btn-primary" data-toggle="modal" data-target="#newSessionModal" href="#">
+              Add New Session <i class="fa fa-plus-circle"></i>
+            </a>
+          </p>
+          <table class="table" id="current-sessions">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Venue</th>
+                <th scope="col">Date</th>
+                <th scope="col">Duration</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-light text-center p-5">
+      <div class="logo"></div>
+      <p>
+        Powered by <a href="https://auth0.com">Auth0</a>
+      </p>
+    </footer>
+  </div>
+
+  <div class="modal fade" id="newSessionModal" tabindex="-1" role="dialog" aria-labelledby="newSessionModal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Session</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="sessionTitle">Title</label>
+              <input type="text" class="form-control" id="sessionTitle" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+              <label for="sessionVenue">Venue</label>
+              <input type="text" class="form-control" id="sessionVenue" placeholder="Enter Venue">
+            </div>
+            <div class="form-group">
+              <label for="sessionDate">Date</label>
+              <input type="date" class="form-control" id="sessionDate" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="form-group">
+              <label for="sessionDuration">Duration</label>
+              <input type="text" class="form-control" id="sessionDuration" placeholder="PT">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="add-session">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registerSpeakerModal" tabindex="-1" role="dialog" aria-labelledby="newSessionModal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Register Yourself as Speaker</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="speakerName">Name</label>
+              <input type="text" class="form-control" id="speakerName" disabled>
+            </div>
+            <div class="form-group">
+              <label for="speakerOrg">Organization</label>
+              <input type="text" class="form-control" id="speakerOrg" placeholder="Enter Organization's Name">
+            </div>            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="register-speaker">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.0/auth0-spa-js.production.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script src="https://kit.fontawesome.com/ebe6da487a.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/data-ui.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/app.operations.js"></script>
+</body>
+
+</html>

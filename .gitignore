@@ -1,0 +1,11 @@
+/.settings/
+/ConferenceWebApplication/.settings/
+/.project
+/ConferenceWebApplication/.classpath
+/ConferenceWebApplication/.project
+/SessionService/.classpath
+/SessionService/.settings/
+/SessionService/.project
+/SpeakerService/.settings/
+/SpeakerService/.project
+/SpeakerService/.classpath

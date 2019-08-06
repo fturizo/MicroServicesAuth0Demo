@@ -1,0 +1,41 @@
+= Conference Application Demo
+
+This is a small application demo used to showcase integration with the Auth0 platform to secure a microservices architecture provisioned using the MicroProfile framework. This application domain is to manage the speakers and session talks for a conference event.
+
+This application is composed of:
+
+* 2 microservice applications:
+** A `speaker` microservice used to manage the speakers that will talk at the event.
+** A `session` microservice used to manage the session talks held at the event.
+* A small web application designed as a **SPA** that uses the previous microservices
+
+== Business Domain
+
+Users that access this application should follow into the next 3 roles:
+
+`Admin`:: Administrators of the conference event. They can:
++
+1. Create new session talks
+2. View all session talks
+3. Delete session talks
+4. View all registered speakers
+5. Accept speakers into the conference.
+
+`Speaker`:: Speakers of talks at the event. They can:
++
+1. View all fellow speakers
+2. Register themselves as speakers
+
+`Attendee`:: Attendees of the event. They can:
++
+1. View all speakers registered
+2. View all session talks
+3. Attend a session if interested
+
+All three applications are configured as Maven projects and can be launched from the command line using the Payara Micro Maven plugin like this:
+
+[source, shell]
+----
+mvn clean install
+mvn payara-micro:start
+----
