@@ -1,10 +1,8 @@
 package fish.payara.demos.conference.session;
 
-import javax.annotation.security.DeclareRoles;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import org.eclipse.microprofile.auth.LoginConfig;
 
 /**
  *
@@ -12,7 +10,5 @@ import org.eclipse.microprofile.auth.LoginConfig;
  */
 @ApplicationPath("/")
 @ApplicationScoped
-@LoginConfig(authMethod = "MP-JWT", realmName = "MP-JWT")
-@DeclareRoles({"Admin", "Attendee"})
 public class SessionApplication extends Application{
 }

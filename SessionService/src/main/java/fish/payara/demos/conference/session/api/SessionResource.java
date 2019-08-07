@@ -6,7 +6,6 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -27,7 +26,6 @@ import javax.ws.rs.core.Response.Status;
 @Path("/session")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed("Admin")
 public class SessionResource {
 
     @Inject
@@ -43,7 +41,6 @@ public class SessionResource {
     
     @GET
     @Path("/all")
-    @RolesAllowed({"Admin", "Attendee"})
     public List<Session> getAll() {
         return sessionService.retrieveSessions();
     }

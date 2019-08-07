@@ -4,7 +4,6 @@ import fish.payara.demos.conference.session.entities.Session;
 import fish.payara.demos.conference.session.services.SessionService;
 import java.security.Principal;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -20,7 +19,6 @@ import javax.ws.rs.core.Response;
  */
 @Path("/register")
 @RequestScoped
-@RolesAllowed("Attendee")
 public class RegistrationResource {
     
     @Inject

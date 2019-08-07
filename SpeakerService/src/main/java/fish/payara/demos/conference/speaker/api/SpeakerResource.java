@@ -4,8 +4,6 @@ import fish.payara.demos.conference.speaker.entitites.Speaker;
 import fish.payara.demos.conference.speaker.services.SpeakerService;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -32,7 +30,6 @@ import javax.ws.rs.core.UriInfo;
 @Path("/speaker")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed({"Admin", "Speaker"})
 public class SpeakerResource {    
 
     @Inject
@@ -69,7 +66,6 @@ public class SpeakerResource {
     
     @POST
     @Path("/accept/{id}")
-    @RolesAllowed("Admin")
     public Response acceptSpeaker(@PathParam("id") Integer id){
         Speaker speaker = speakerService.get(id).orElseThrow(() -> new NotFoundException("Speaker not found"));
         speakerService.save(speaker.accept());
@@ -77,7 +73,6 @@ public class SpeakerResource {
     }
     
     @HEAD
-    @PermitAll
     public Response checkSpeakers(@QueryParam("names") List<String> names){
         return (speakerService.allNamesExists(names) ? Response.ok() : Response.status(Status.NOT_FOUND)).build();
     }
