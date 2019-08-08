@@ -12,7 +12,7 @@ import org.eclipse.microprofile.auth.LoginConfig;
  */
 @ApplicationPath("/")
 @ApplicationScoped
-@LoginConfig(authMethod = "MP-JWT", realmName = "MP-JWT")
+@LoginConfig(authMethod = "MP-JWT")
 @DeclareRoles({"Admin", "Attendee"})
 public class SessionApplication extends Application{
 }

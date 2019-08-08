@@ -8,7 +8,8 @@ const login = async (targetUrl) => {
     try {
         console.log("Logging in", targetUrl);
         const options = {
-            redirect_uri: window.location.origin
+            redirect_uri: window.location.origin,
+            prompt : "select_account"
         };
         if (targetUrl) {
             options.appState = {targetUrl};
