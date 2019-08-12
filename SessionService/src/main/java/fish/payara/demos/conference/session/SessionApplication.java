@@ -13,6 +13,6 @@ import org.eclipse.microprofile.auth.LoginConfig;
 @ApplicationPath("/")
 @ApplicationScoped
 @LoginConfig(authMethod = "MP-JWT")
-@DeclareRoles({"Admin", "Attendee"})
+@DeclareRoles({"Admin", "Attendee", "Speaker"})
 public class SessionApplication extends Application{
 }
