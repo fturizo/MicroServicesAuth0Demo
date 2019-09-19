@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.payara>5.192</version.payara>
+        <version.payara>5.193</version.payara>
         
         <conference.service.webapp.port>8000</conference.service.webapp.port>
         <conference.service.session.port>8080</conference.service.session.port>
